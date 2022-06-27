@@ -61,16 +61,16 @@ public class SalesInvoiceHeader {
     
     public double getInvoiceTotal(){
         double total = 0.0;
-         for (int i = 0; i<invoiceLines.size(); i++)
+         for (int i = 0; i<getInvoiceLines().size(); i++)
          {
-             total += invoiceLines.get(i).getTotal();
+             total += getInvoiceLines().get(i).getTotal();
          }
         return total;
     }
 
     @Override
     public String toString() {
-        return invoiceNumber + "," + df.format(invoiceDate) + "," + customerName + '}';
+        return invoiceNumber + "," + df.format(invoiceDate) + "," + customerName;
     }
     
     

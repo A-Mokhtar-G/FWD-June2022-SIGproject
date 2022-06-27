@@ -13,6 +13,14 @@ public class RightInvoiceTableModel extends AbstractTableModel {
     public RightInvoiceTableModel(ArrayList<SalesInvoiceLine> itemsArray) {
         this.itemsArray = itemsArray;
     }
+
+    public ArrayList<SalesInvoiceLine> getItemsArray() {
+        return itemsArray;
+    }
+
+    public void setItemsArray(ArrayList<SalesInvoiceLine> itemsArray) {
+        this.itemsArray = itemsArray;
+    }
     
 
     @Override

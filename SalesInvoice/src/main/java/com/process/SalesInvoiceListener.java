@@ -135,15 +135,17 @@ public class SalesInvoiceListener implements ActionListener {
     }
 
     private void cancelInvoiceItem() {
-        int selectedLineIndex = window.getleftInvoicesTable().getSelectedRow();
+        int selectedLineIndex = window.getItemsTable().getSelectedRow();
         int selectedInvoiceIndex = window.getleftInvoicesTable().getSelectedRow();
         if (selectedLineIndex != -1) {
             window.getInvoiceLinesArray().remove(selectedLineIndex);
-            RightInvoiceTableModel lineTableModel = (RightInvoiceTableModel) window.getleftInvoicesTable().getModel();
+            RightInvoiceTableModel lineTableModel = (RightInvoiceTableModel) window.getItemsTable().getModel();
+            lineTableModel.setItemsArray(window.getInvoiceLinesArray());
             lineTableModel.fireTableDataChanged();
-            window.getInvoiceTotalLabelField().setText("" + window.getInvoicesArray().get(selectedInvoiceIndex).getInvoiceTotal());
-            window.getLeftTableModel().fireTableDataChanged();
             window.getleftInvoicesTable().setRowSelectionInterval(selectedInvoiceIndex, selectedInvoiceIndex);
+            window.getLeftTableModel().fireTableDataChanged();
+            SalesInvoiceHeader selectedInvoice = window.getInvoicesArray().get(selectedInvoiceIndex);
+            window.getInvoiceTotalLabelField().setText("" + selectedInvoice.getInvoiceTotal());
         }
     }
 
@@ -194,7 +196,7 @@ public class SalesInvoiceListener implements ActionListener {
             window.getInvoicesArray().remove(selectedInvoiceIndex);
             window.getLeftTableModel().fireTableDataChanged();
 
-            window.getleftInvoicesTable().setModel(new RightInvoiceTableModel(null));
+            window.getItemsTable().setModel(new RightInvoiceTableModel(null));
             window.setInvoiceLinesArray(null);
             window.getCustomerNameLabelField().setText("");
             window.getInvoiceNumberLabelField().setText("");
@@ -270,9 +272,11 @@ public class SalesInvoiceListener implements ActionListener {
             SalesInvoiceHeader invHeader = window.getInvoicesArray().get(selectedInvHeader);
             SalesInvoiceLine line = new SalesInvoiceLine(name, price, count, invHeader);
             window.getInvoiceLinesArray().add(line);
-            RightInvoiceTableModel lineTableModel = (RightInvoiceTableModel) window.getleftInvoicesTable().getModel();
+            
+            RightInvoiceTableModel lineTableModel = new RightInvoiceTableModel(window.getInvoiceLinesArray());
+            window.getItemsTable().setModel(lineTableModel);
             lineTableModel.fireTableDataChanged();
-            window.getLeftTableModel().fireTableDataChanged();
+            //((AbstractTableModel)window.getItemsTable().getModel()).fireTableDataChanged();
         }
         window.getleftInvoicesTable().setRowSelectionInterval(selectedInvHeader, selectedInvHeader);
         lineDialog.dispose();

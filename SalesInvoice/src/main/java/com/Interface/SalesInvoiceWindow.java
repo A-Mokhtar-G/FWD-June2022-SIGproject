@@ -89,10 +89,11 @@ public class SalesInvoiceWindow extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(ItemsTable);
 
-        SaveInvoiceItemButton.setText("Save");
+        SaveInvoiceItemButton.setText("Add Item");
+        SaveInvoiceItemButton.setToolTipText("");
         SaveInvoiceItemButton.addActionListener(actionListener);
 
-        CancelInvoiceItemButton.setText("Cancel");
+        CancelInvoiceItemButton.setText("Delete Item");
         CancelInvoiceItemButton.addActionListener(actionListener);
 
         FileMenu.setText("File");
