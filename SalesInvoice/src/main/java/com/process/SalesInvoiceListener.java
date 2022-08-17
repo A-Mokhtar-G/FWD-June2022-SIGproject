@@ -51,11 +51,11 @@ public class SalesInvoiceListener implements ActionListener {
                 deleteInvoice();
                 break;
 
-            case "Save":
+            case "Add Item":
                 saveNewItem();
                 break;
 
-            case "Cancel":
+            case "Delete Item":
                 cancelInvoiceItem();
                 break;
 
